@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXTERIOR DETAIL – Boza Detailing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #C8102E; --red-dark: #9c0a22; --red-glow: rgba(200,16,46,0.35);
+      --black: #0a0a0a; --black-mid: #111111; --black-card: #161616;
+      --white: #ffffff; --white-dim: rgba(255,255,255,0.72); --white-faint: rgba(255,255,255,0.08);
+      --font-display: 'Bebas Neue', sans-serif; --font-body: 'Barlow', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: var(--font-body); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 68px;
+      background: rgba(10,10,10,0.95); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(200,16,46,0.3);
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 1.85rem; letter-spacing: 0.06em; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .nav-logo span { color: var(--red); }
+    .logo-icon { width: 36px; height: 36px; background: var(--red); clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: #fff; font-family: var(--font-display); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-menu { position: relative; }
+    .nav-toggle-btn { background: none; border: 1px solid rgba(255,255,255,0.15); color: var(--white); font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 9px 20px; cursor: pointer; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, background 0.2s; }
+    .nav-toggle-btn:hover { border-color: var(--red); background: var(--white-faint); }
+    .nav-toggle-btn svg { transition: transform 0.3s; }
+    .nav-toggle-btn.open svg { transform: rotate(180deg); }
+    .dropdown { position: absolute; top: calc(100% + 12px); right: 0; background: var(--black-mid); border: 1px solid rgba(200,16,46,0.35); border-radius: 4px; min-width: 240px; overflow: hidden; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.25s, transform 0.25s; }
+    .dropdown.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .dropdown a { display: block; padding: 14px 22px; color: var(--white-dim); text-decoration: none; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.06); transition: background 0.15s, color 0.15s, padding-left 0.2s; }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { background: var(--white-faint); color: var(--red); padding-left: 28px; }
+    .dropdown a.has-sub { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .dropdown a.has-sub .sub-arrow { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.25s; }
+    .dropdown a.has-sub.sub-open .sub-arrow { transform: rotate(180deg); }
+    .dropdown-sub { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s; opacity: 0; background: rgba(0,0,0,0.35); display: flex; flex-direction: column; }
+    .dropdown-sub.open { max-height: 300px; opacity: 1; }
+    .dropdown a.service-link { padding: 13px 22px 13px 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-dim); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); border-left: 2px solid transparent; transition: background 0.15s, color 0.15s, border-left-color 0.15s, padding-left 0.2s; }
+    .dropdown a.service-link:last-child { border-bottom: none; }
+    .dropdown a.service-link:hover { padding-left: 36px; color: var(--red); background: rgba(200,16,46,0.09); border-left-color: var(--red); }
+    .dropdown a.service-link .svc-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); flex-shrink: 0; opacity: 0.6; }
+    .dropdown a.service-link:hover .svc-dot { opacity: 1; }
+    .mobile-nav { display: none; position: fixed; top: 68px; left: 0; right: 0; bottom: 0; background: rgba(10,10,10,0.97); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 0; overflow-y: auto; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { width: 100%; text-align: center; padding: 22px; font-family: var(--font-display); font-size: 2.2rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.07); transition: color 0.2s, background 0.2s; }
+    .mobile-nav a:hover { color: var(--red); background: rgba(200,16,46,0.07); }
+    .mobile-nav a.mob-has-sub { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .mob-sub-arrow { transition: transform 0.25s; display: flex; align-items: center; }
+    .mob-has-sub.sub-open .mob-sub-arrow { transform: rotate(180deg); }
+    .mob-services-sub { width: 100%; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s; opacity: 0; background: rgba(200,16,46,0.07); display: flex; flex-direction: column; }
+    .mob-services-sub.open { max-height: 400px; opacity: 1; }
+    .mobile-nav a.mob-service { width: 100%; text-align: center; font-size: 1.5rem; color: rgba(255,255,255,0.6); padding: 18px 22px; letter-spacing: 0.1em; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .mobile-nav a.mob-service:last-child { border-bottom: none; }
+    .mobile-nav a.mob-service:hover { color: var(--red); background: rgba(200,16,46,0.1); }
+
+    /* PAGE HERO */
+    .page-hero {
+      position: relative; padding: 160px 40px 90px; text-align: center; overflow: hidden;
+      background: var(--black-mid);
+    }
+    .page-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.18; }
+    .page-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,10,10,0.3), var(--black-mid)); }
+    .page-hero-content { position: relative; z-index: 1; }
+    .page-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .page-eyebrow::before, .page-eyebrow::after { content: ''; display: block; width: 36px; height: 1px; background: var(--red); }
+    .page-title { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 6rem); letter-spacing: 0.04em; line-height: 1; margin-bottom: 16px; }
+    .page-sub { font-size: 1.05rem; font-weight: 300; color: var(--white-dim); max-width: 540px; margin: 0 auto; line-height: 1.75; }
+
+    /* CONTENT */
+    .svc-content { max-width: 1100px; margin: 0 auto; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+    .svc-img { border-radius: 4px; overflow: hidden; border: 1px solid rgba(200,16,46,0.25); }
+    .svc-img img { width: 100%; display: block; }
+    .svc-detail { }
+    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red); display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .section-label::after { content: ''; display: block; width: 36px; height: 1px; background: var(--red); }
+    .svc-detail h2 { font-family: var(--font-display); font-size: 2.8rem; letter-spacing: 0.04em; margin-bottom: 16px; }
+    .svc-detail p { color: var(--white-dim); font-size: 0.96rem; line-height: 1.8; margin-bottom: 28px; }
+    .svc-list { list-style: none; margin-bottom: 34px; }
+    .svc-list li { font-size: 0.92rem; color: var(--white-dim); padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 12px; }
+    .svc-list li::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+    .price-tag { font-family: var(--font-display); font-size: 2.4rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 28px; }
+    .price-tag span { font-family: var(--font-body); font-size: 0.85rem; color: var(--white-dim); font-weight: 300; letter-spacing: 0.08em; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 38px; background: var(--red); color: var(--white); text-decoration: none; font-family: var(--font-body); font-weight: 700; font-size: 0.88rem; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 2px; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .cta-btn:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 30px var(--red-glow); }
+
+    /* WHAT'S INCLUDED STRIP */
+    .includes-strip { background: var(--black-card); border-top: 1px solid rgba(200,16,46,0.2); border-bottom: 1px solid rgba(200,16,46,0.2); padding: 60px 40px; }
+    .includes-inner { max-width: 1100px; margin: 0 auto; }
+    .includes-inner h3 { font-family: var(--font-display); font-size: 2rem; letter-spacing: 0.06em; margin-bottom: 36px; }
+    .includes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .include-card { background: var(--black-mid); border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; padding: 22px 20px; transition: border-color 0.2s; }
+    .include-card:hover { border-color: rgba(200,16,46,0.4); }
+    .include-card .ic-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .include-card strong { display: block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .include-card span { font-size: 0.82rem; color: var(--white-dim); line-height: 1.5; }
+
+    /* FOOTER */
+    footer { background: var(--black-mid); border-top: 1px solid rgba(200,16,46,0.25); padding: 36px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .footer-logo { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.06em; color: var(--white); }
+    .footer-logo span { color: var(--red); }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-dim); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--red); }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-menu { display: none; }
+      .hamburger { display: flex; }
+      .svc-content { grid-template-columns: 1fr; padding: 50px 20px; gap: 40px; }
+      .page-hero { padding: 130px 20px 60px; }
+      .includes-strip { padding: 50px 20px; }
+      footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      BOZA<span>DETAILING</span>
+    </a>
+    <div class="nav-menu">
+      <button class="nav-toggle-btn" id="navToggle" aria-expanded="false">
+        Menu
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="dropdown" id="dropdown">
+        <a href="index.html">Home</a>
+        <a href="#" class="has-sub" id="servicesToggle">
+          Services
+          <span class="sub-arrow">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+        <div class="dropdown-sub" id="servicesSub">
+          <a href="exterior.html" class="service-link"><span class="svc-dot"></span>Exterior Detail</a>
+          <a href="interior.html" class="service-link"><span class="svc-dot"></span>Interior Detail</a>
+          <a href="premium.html" class="service-link"><span class="svc-dot"></span>Premium Detail</a>
+        </div>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html" class="mob-link">Home</a>
+    <a href="#" class="mob-link mob-has-sub" id="mobServicesToggle">
+      Services
+      <span class="mob-sub-arrow">
+        <svg width="16" height="16" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    <div class="mob-services-sub" id="mobServicesSub">
+      <a href="exterior.html" class="mob-link mob-service">Exterior Detail</a>
+      <a href="interior.html" class="mob-link mob-service">Interior Detail</a>
+      <a href="premium.html" class="mob-link mob-service">Premium Detail</a>
+    </div>
+    <a href="index.html#contact" class="mob-link">Contact</a>
+  </div>
+
+  <section class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('IMG_8037.jpg');"></div>
+    <div class="page-hero-content">
+      <div class="page-eyebrow">Outside Perfection</div>
+      <h1 class="page-title">EXTERIOR DETAIL</h1>
+      <p class="page-sub">A thorough exterior cleanse that removes dirt, grime, and road contaminants — leaving your paint gleaming and protected.</p>
+    </div>
+  </section>
+
+  <div class="svc-content">
+    <div class="svc-img">
+      <img src="IMG_8046.jpg" alt="EXTERIOR DETAIL" />
+    </div>
+    <div class="svc-detail">
+      <div class="section-label">What's Included</div>
+      <h2>EXTERIOR DETAIL</h2>
+      <p>Our Exterior Detail package is perfect for keeping your vehicle's paint, glass, and trim in pristine condition. Using professional-grade products and techniques, we remove surface contaminants and restore that just-rolled-off-the-lot shine.</p>
+      <ul class="svc-list">
+            <li>Hand wash & full rinse</li>
+            <li>Wheel & tire deep clean</li>
+            <li>Tire dressing application</li>
+            <li>Window & mirror cleaning</li>
+            <li>Exterior panel wipe-down & dry</li>
+            <li>Door jamb cleaning</li>
+            <li>Trim protection</li>
+      </ul>
+      <div class="price-tag">Starting at $70 <span>/ vehicle</span></div>
+      <a href="index.html#contact" class="cta-btn">Book This Service →</a>
+    </div>
+  </div>
+
+  <div class="includes-strip">
+    <div class="includes-inner">
+      <h3>WHAT YOU GET</h3>
+      <div class="includes-grid">
+        <div class="include-card">
+          <div class="ic-icon">🚿</div>
+          <strong>Hand Wash</strong>
+          <span>Full exterior hand wash with premium soap</span>
+        </div>
+        <div class="include-card">
+          <div class="ic-icon">🛞</div>
+          <strong>Wheel Clean</strong>
+          <span>Wheels, tires & wheel wells decontaminated</span>
+        </div>
+        <div class="include-card">
+          <div class="ic-icon">🪟</div>
+          <strong>Glass Polish</strong>
+          <span>Streak-free windows inside and out</span>
+        </div>
+        <div class="include-card">
+          <div class="ic-icon">✨</div>
+          <strong>Tire Shine</strong>
+          <span>Long-lasting tire dressing applied</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">BOZA<span> DETAILING</span></div>
+    <div class="footer-copy">© 2026 Boza Detailing. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="exterior.html">Exterior</a>
+      <a href="interior.html">Interior</a>
+      <a href="premium.html">Premium</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const dropdown = document.getElementById('dropdown');
+    const servicesToggle = document.getElementById('servicesToggle');
+    const servicesSub = document.getElementById('servicesSub');
+
+    navToggle.addEventListener('click', () => {
+      const open = dropdown.classList.toggle('open');
+      navToggle.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open);
+      if (!open) { servicesSub.classList.remove('open'); servicesToggle.classList.remove('sub-open'); }
+    });
+    document.addEventListener('click', e => {
+      if (!navToggle.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('open'); navToggle.classList.remove('open');
+        servicesSub.classList.remove('open'); servicesToggle.classList.remove('sub-open');
+      }
+    });
+    servicesToggle.addEventListener('click', e => {
+      e.preventDefault();
+      const open = servicesSub.classList.toggle('open');
+      servicesToggle.classList.toggle('sub-open', open);
+    });
+    dropdown.querySelectorAll('a:not(.has-sub):not(.service-link)').forEach(a => {
+      a.addEventListener('click', () => {
+        dropdown.classList.remove('open'); navToggle.classList.remove('open');
+        servicesSub.classList.remove('open'); servicesToggle.classList.remove('sub-open');
+      });
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobServicesToggle = document.getElementById('mobServicesToggle');
+    const mobServicesSub = document.getElementById('mobServicesSub');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    mobServicesToggle.addEventListener('click', e => {
+      e.preventDefault();
+      const open = mobServicesSub.classList.toggle('open');
+      mobServicesToggle.classList.toggle('sub-open', open);
+    });
+    document.querySelectorAll('.mob-link:not(.mob-has-sub)').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open'); mobileNav.classList.remove('open');
+        mobServicesSub.classList.remove('open'); mobServicesToggle.classList.remove('sub-open');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+</body>
+</html>
