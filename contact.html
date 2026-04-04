@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – Boza Detailing</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAV (same as your main page) -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      BOZA<span>DETAILING</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html#home">Home</a>
+
+      <div class="nav-services">
+        <button class="nav-services-btn" id="navServicesBtn">
+          Services
+        </button>
+        <div class="nav-services-dropdown" id="navServicesDropdown">
+          <a href="exterior.html">Exterior Detail</a>
+          <a href="interior.html">Interior Detail</a>
+          <a href="premium.html">Premium Detail</a>
+        </div>
+      </div>
+
+      <a href="index.html#location">Location</a>
+      <a href="contact.html" class="nav-book-btn">Contact</a>
+    </div>
+
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html#home">Home</a>
+    <a href="exterior.html">Exterior Detail</a>
+    <a href="interior.html">Interior Detail</a>
+    <a href="premium.html">Premium Detail</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section style="padding:120px 20px; text-align:center;">
+    <div class="section-label">Get In Touch</div>
+    <h1 class="section-title">CONTACT US</h1>
+    <p style="max-width:600px; margin:20px auto;">
+      Ready to get your vehicle looking brand new? Reach out using the information below — we’ll get back to you quickly.
+    </p>
+  <div class="red-divider"></div>
+
+<div class="form-wrapper">
+  <div class="form-container">
+    <form class="quote-form" action="https://formspree.io/f/mqeggapa" method="POST" id="my-form">
+      
+      <input type="text" name="first_name" placeholder="First Name" required/>
+      <input type="text" name="last_name" placeholder="Last Name" required/>
+      <input type="tel" name="phone" placeholder="Phone Number" required/>
+      <input type="email" name="email" placeholder="Email Address" required/>
+      
+      <select name="service" required>
+        <option value="" disabled selected>Select a Service</option>
+        <option value="Exterior Detail">Exterior Detail</option>
+        <option value="Interior Detail">Interior Detail</option>
+        <option value="Premium Detail">Premium Detail</option>
+      </select>
+      
+      <textarea name="message" placeholder="Tell us about your space — square footage, rooms, any problem areas, etc."></textarea>
+      
+      <input type="text" name="_gotcha" style="display:none" />
+
+      <button type="submit" class="quote-submit" id="submit-btn">Request My Free Quote</button>
+      <p id="form-status" style="display: none;"></p>
+    </form>
+  </div>
+</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">BOZA<span> DETAILING</span></div>
+    <div class="footer-copy">© 2026 Boza Detailing. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const navServicesBtn = document.getElementById('navServicesBtn');
+    const navServicesDropdown = document.getElementById('navServicesDropdown');
+
+    navServicesBtn.addEventListener('click', () => {
+      navServicesDropdown.classList.toggle('open');
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>
