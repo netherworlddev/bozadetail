@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add-Ons | Boza Detailing</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ADD-ONS SPECIFIC STYLES */
+    .addons-hero {
+      padding: 140px 20px 60px;
+      text-align: center;
+      background: linear-gradient(to bottom, #111, var(--black));
+    }
+
+    .addons-grid {
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      padding: 0 20px;
+    }
+
+    .addon-card {
+      background: var(--black-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 30px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .addon-card:hover {
+      border-color: var(--red);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .addon-name {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .addon-price {
+      font-family: var(--font-body);
+      font-weight: 700;
+      color: var(--red);
+      font-size: 1.3rem;
+      margin-top: 20px;
+    }
+
+    .addon-details {
+      font-size: 0.95rem;
+      color: var(--white-dim);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .addon-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--red);
+      margin-bottom: 12px;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    /* Mobile Specific Tweaks */
+    @media (max-width: 768px) {
+      .addons-hero { padding: 120px 20px 40px; }
+      .addons-grid { grid-template-columns: 1fr; }
+      .addon-card { padding: 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="mainNav">
+    <a class="nav-logo" href="index.html">BOZA<span>DETAILING</span></a>
+    
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="nav-services">
+        <button class="nav-services-btn" id="navServicesBtn">
+          Services
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-services-dropdown" id="navServicesDropdown">
+          <a href="exterior.html"><span class="svc-dot"></span>Exterior Detail</a>
+          <a href="interior.html"><span class="svc-dot"></span>Interior Detail</a>
+          <a href="premium.html"><span class="svc-dot"></span>Premium Detail</a>
+          <a href="addons.html"><span class="svc-dot"></span>Add-Ons</a>
+        </div>
+      </div>
+      <a href="index.html#location">Location</a>
+      <a href="#contact" class="nav-book-btn">Book Now</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <button class="mob-services-header" id="mobServicesToggle">
+      Services
+      <span class="mob-sub-arrow">
+        <svg width="18" height="18" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </button>
+    <div class="mob-services-sub" id="mobServicesSub">
+      <a href="exterior.html">Exterior Detail <span class="svc-price">From $70</span></a>
+      <a href="interior.html">Interior Detail <span class="svc-price">From $150</span></a>
+      <a href="premium.html">Premium Detail <span class="svc-price">From $200</span></a>
+      <a href="addons.html">Add-Ons <span class="svc-price">View Prices</span></a>
+    </div>
+    <a href="index.html#location">Location</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <header class="addons-hero">
+    <div class="section-label" style="justify-content: center;">Premium Upgrades</div>
+    <h1 class="section-title">SERVICE ADD-ONS</h1>
+    <p class="section-desc" style="margin: 0 auto;">Select these options in the form below to customize your detailing package.</p>
+  </header>
+
+  <section class="addons-grid">
+    <div class="addon-card">
+      <div>
+        <span class="addon-tag">Exterior</span>
+        <h3 class="addon-name">Clay Bar & Iron Decon</h3>
+        <p class="addon-details">Chemical and mechanical decontamination to remove iron particles and embedded grit for a smooth-as-glass finish.</p>
+      </div>
+      <div class="addon-price">$100</div>
+    </div>
+
+    <div class="addon-card">
+      <div>
+        <span class="addon-tag">Exterior</span>
+        <h3 class="addon-name">Headlight Restoration</h3>
+        <p class="addon-details">Multi-stage sanding and polishing process to remove oxidation and restore factory clarity to your lenses.</p>
+      </div>
+      <div class="addon-price">$60</div>
+    </div>
+
+    <div class="addon-card">
+      <div>
+        <span class="addon-tag">Engine</span>
+        <h3 class="addon-name">Engine Bay Cleaning</h3>
+        <p class="addon-details">Safe degreasing of engine components followed by a non-greasy dressing to protect plastics and hoses.</p>
+      </div>
+      <div class="addon-price">$50</div>
+    </div>
+
+    <div class="addon-card">
+      <div>
+        <span class="addon-tag">Interior</span>
+        <h3 class="addon-name">Headliner Deep Clean</h3>
+        <p class="addon-details">Careful extraction of stains and odors from the ceiling fabric without compromising the adhesive bond.</p>
+      </div>
+      <div class="addon-price">$50</div>
+    </div>
+
+    <div class="addon-card">
+      <div>
+        <span class="addon-tag">Interior</span>
+        <h3 class="addon-name">Heavy Stained Seats</h3>
+        <p class="addon-details">Deep hot-water extraction and steam treatment for upholstery with severe stains or spills.</p>
+      </div>
+      <div class="addon-price">$50</div>
+    </div>
+
+    <div class="addon-card">
+      <div>
+        <span class="addon-tag">Specialty</span>
+        <h3 class="addon-name">Sand Removal</h3>
+        <p class="addon-details">Specialized tools and extended vacuuming time to pull deep-seated sand from tight carpet fibers.</p>
+      </div>
+      <div class="addon-price">$40</div>
+    </div>
+
+    <div class="addon-card">
+      <div>
+        <span class="addon-tag">Interior</span>
+        <h3 class="addon-name">Pet Hair Removal</h3>
+        <p class="addon-details">Using static brushes and specialized vacuums to remove stubborn fur from carpets and seats.</p>
+      </div>
+      <div class="addon-price">$30</div>
+    </div>
+  </section>
+
+  <div class="red-divider"></div>
+
+  <div class="form-wrapper" id="contact">
+    <div class="form-container">
+      <h2 style="color:#000; font-family:var(--font-display); font-size: 2.2rem; margin-bottom: 20px; text-align: center;">BOOK YOUR SERVICE</h2>
+      <form class="quote-form" action="https://formspree.io/f/mqeggapa" method="POST" id="my-form">
+        <input type="text" name="first_name" placeholder="First Name" required/>
+        <input type="text" name="last_name" placeholder="Last Name" required/>
+        <input type="tel" name="phone" placeholder="Phone Number" required/>
+        <input type="email" name="email" placeholder="Email Address" required/>
+        <select name="service" required>
+          <option value="" disabled selected>Select Base Service</option>
+          <option value="Exterior Detail">Exterior Detail</option>
+          <option value="Interior Detail">Interior Detail</option>
+          <option value="Premium Detail">Premium Detail</option>
+        </select>
+        <textarea name="message" placeholder="Which add-ons would you like? (e.g. Clay bar, Pet hair removal...)"></textarea>
+        <button type="submit" class="quote-submit" id="submit-btn">Request My Free Quote</button>
+        <p id="form-status" style="display: none;"></p>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">BOZA<span> DETAILING</span></div>
+    <div class="footer-copy">© 2026 Boza Detailing. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // 1. MOBILE MENU LOGIC
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobServicesToggle = document.getElementById('mobServicesToggle');
+    const mobServicesSub = document.getElementById('mobServicesSub');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+
+    mobServicesToggle.addEventListener('click', () => {
+      mobServicesSub.classList.toggle('open');
+      mobServicesToggle.classList.toggle('sub-open');
+    });
+
+    // 2. DESKTOP DROPDOWN
+    const navServicesBtn = document.getElementById('navServicesBtn');
+    const navServicesDropdown = document.getElementById('navServicesDropdown');
+
+    navServicesBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navServicesDropdown.classList.toggle('open');
+    });
+
+    document.addEventListener('click', () => {
+      navServicesDropdown.classList.remove('open');
+    });
+
+    // 3. NAV SCROLL EFFECT
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('mainNav');
+      nav.style.background = window.scrollY > 60 ? 'rgba(10,10,10,0.98)' : 'rgba(10,10,10,0.92)';
+    });
+
+    // 4. FORM HANDLING
+    var form = document.getElementById("my-form");
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      var status = document.getElementById("form-status");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        status.style.display = "block";
+        if (response.ok) {
+          status.innerHTML = "Thanks! Your request has been sent.";
+          form.reset();
+        } else {
+          status.innerHTML = "Oops! Problem submitting form.";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
